@@ -1,0 +1,15 @@
+# Claves y secretos (obligatorio por la norma 8 del taller)
+*.pem
+*.key
+.ssh/
+.env
+config/cluster.json
+# Python
+__pycache__/
+*.pyc
+.venv/
+# Logs de ejecución (las evidencias se copian a evidencias/ y resultados/)
+logs/
+# Scripts con datos de la cuenta/proyecto de nube: no se publican
+scripts/gcp-crear-vms.ps1
+informe/*.docx
