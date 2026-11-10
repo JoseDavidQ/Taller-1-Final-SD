@@ -1,0 +1,18 @@
+# Instalar: sudo cp deploy/coord-nodo.service /etc/systemd/system/coord-nodo@.service
+# Usar:     sudo systemctl enable --now coord-nodo@2     (el número es el id del nodo)
+# Editar USUARIO y RUTA (ruta absoluta del repo) antes de copiar.
+[Unit]
+Description=Nodo %i de coordinacion y datos (Taller 1)
+After=network-online.target tailscaled.service redis-server.service
+Wants=network-online.target
+
+[Service]
+User=USUARIO
+WorkingDirectory=RUTA/taller1-coordinacion-datos
+EnvironmentFile=RUTA/taller1-coordinacion-datos/.env
+ExecStart=RUTA/taller1-coordinacion-datos/.venv/bin/python -m coord.node --id %i --config config/cluster.json --log-dir logs
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
