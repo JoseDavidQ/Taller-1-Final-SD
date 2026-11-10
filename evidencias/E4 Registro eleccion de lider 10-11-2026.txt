@@ -1,0 +1,34 @@
+
+================ 2026-11-10T03:49:56+00:00 :: 1. Estado: debe haber UN líder único (nodo 2) ================
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+1    seguidor  3        2      slave   None    0          0/0                0         
+2    líder     3        2      master  True    0          0/0                0         
+3    seguidor  3        2      slave   None    0          0/0                0         
+
+================ 2026-11-10T03:49:56+00:00 :: 2. Caída del líder: se detiene el servicio en el nodo 2 ================
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+1    seguidor  4        3      slave   None    0          0/0                0         
+2    INACCESIBLE
+3    líder     4        3      master  True    0          0/0                0         
+
+================ 2026-11-10T03:50:09+00:00 :: 3. El antiguo líder vuelve: debe reconocer al nuevo (sin volver a tomar el mando) ================
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+1    seguidor  4        3      slave   None    0          0/0                0         
+2    seguidor  4        3      slave   None    0          0/0                0         
+3    líder     4        3      master  True    0          0/0                0         
+
+================ 2026-11-10T03:50:17+00:00 :: 4. Líder falso: el nodo 1 se autoproclama líder sin haber ganado la elección ================
+{
+  "ok": true,
+  "respuestas": {
+    "2": false,
+    "3": false
+  },
+  "from": 1,
+  "lc": 1803
+}
+El reclamo falso fue RECHAZADO por: ['2', '3']
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+1    seguidor  4        3      slave   None    0          0/0                0         
+2    seguidor  4        3      slave   None    0          0/0                1         
+3    líder     4        3      master  True    0          0/0                1         

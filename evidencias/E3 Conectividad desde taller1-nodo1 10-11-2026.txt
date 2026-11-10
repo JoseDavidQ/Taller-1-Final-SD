@@ -1,0 +1,52 @@
+=== Verificación de conectividad desde taller1-nodo1 - 2026-11-10T03:48:40+00:00 ===
+--- tailscale status ---
+100.108.57.51   taller1-nodo1  josedavidq08@  linux    -                                                    
+100.101.146.34  pcjose         josedavidq08@  windows  -                                                    
+100.67.78.91    taller1-nodo2  josedavidq08@  linux    active; direct 10.50.0.3:41641, tx 206696 rx 197880  
+100.98.213.46   taller1-nodo3  josedavidq08@  linux    idle, tx 36912 rx 36440                              
+--- IP propia ---
+100.108.57.51
+
+### ping a 100.108.57.51
+PING 100.108.57.51 (100.108.57.51) 56(84) bytes of data.
+64 bytes from 100.108.57.51: icmp_seq=1 ttl=64 time=0.045 ms
+64 bytes from 100.108.57.51: icmp_seq=2 ttl=64 time=0.056 ms
+64 bytes from 100.108.57.51: icmp_seq=3 ttl=64 time=0.084 ms
+
+--- 100.108.57.51 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2046ms
+rtt min/avg/max/mdev = 0.045/0.061/0.084/0.016 ms
+PING OK 100.108.57.51
+### ssh a 100.108.57.51 (solo clave pública, sin contraseña)
+SSH OK hacia taller1-nodo1
+SSH OK 100.108.57.51
+
+### ping a 100.67.78.91
+PING 100.67.78.91 (100.67.78.91) 56(84) bytes of data.
+64 bytes from 100.67.78.91: icmp_seq=1 ttl=64 time=1.79 ms
+64 bytes from 100.67.78.91: icmp_seq=2 ttl=64 time=1.85 ms
+64 bytes from 100.67.78.91: icmp_seq=3 ttl=64 time=2.16 ms
+
+--- 100.67.78.91 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 1.794/1.932/2.156/0.159 ms
+PING OK 100.67.78.91
+### ssh a 100.67.78.91 (solo clave pública, sin contraseña)
+SSH OK hacia taller1-nodo2
+SSH OK 100.67.78.91
+
+### ping a 100.98.213.46
+PING 100.98.213.46 (100.98.213.46) 56(84) bytes of data.
+64 bytes from 100.98.213.46: icmp_seq=1 ttl=64 time=3.38 ms
+64 bytes from 100.98.213.46: icmp_seq=2 ttl=64 time=1.76 ms
+64 bytes from 100.98.213.46: icmp_seq=3 ttl=64 time=1.49 ms
+
+--- 100.98.213.46 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 1.489/2.207/3.379/0.835 ms
+PING OK 100.98.213.46
+### ssh a 100.98.213.46 (solo clave pública, sin contraseña)
+SSH OK hacia taller1-nodo3
+SSH OK 100.98.213.46
+
+=== Resultado: 0 fallos ===
