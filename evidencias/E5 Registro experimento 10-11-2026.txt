@@ -1,0 +1,119 @@
+
+================ 2026-11-10T04:06:30+00:00 :: 0. Estado inicial y siembra del inventario ================
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+1    seguidor  6        3      slave   None    0          0/0                0         
+2    seguidor  6        3      slave   None    0          0/0                1         
+3    líder     6        3      master  True    0          1/1                1         
+OK vía nodo 3 (coordinador 3, quórum=True): nodo1 -> cpu=2 mem=2048 bw=100 vv={"2": 6, "3": 4} L=6641 w=3
+OK vía nodo 3 (coordinador 3, quórum=True): nodo2 -> cpu=2 mem=2048 bw=100 vv={"2": 4, "3": 3} L=6643 w=3
+OK vía nodo 3 (coordinador 3, quórum=True): nodo3 -> cpu=2 mem=2048 bw=100 vv={"2": 2, "3": 2} L=6645 w=3
+
+================ 2026-11-10T04:06:32+00:00 :: 1. ANTES de la partición ================
+
+### ANTES — 2026-11-10 04:06:33
+
+| nodo | estado | término | líder | Redis | recurso | cpu | mem | bw | vector de versión | Lamport |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | seguidor | 6 | 3 | slave | nodo1 | 2 | 2048 | 100 | {"2": 6, "3": 4} | 6641 |
+| 1 | seguidor | 6 | 3 | slave | nodo2 | 2 | 2048 | 100 | {"2": 4, "3": 3} | 6643 |
+| 1 | seguidor | 6 | 3 | slave | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+| 2 | seguidor | 6 | 3 | slave | nodo1 | 2 | 2048 | 100 | {"2": 6, "3": 4} | 6641 |
+| 2 | seguidor | 6 | 3 | slave | nodo2 | 2 | 2048 | 100 | {"2": 4, "3": 3} | 6643 |
+| 2 | seguidor | 6 | 3 | slave | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+| 3 | líder | 6 | 3 | master | nodo1 | 2 | 2048 | 100 | {"2": 6, "3": 4} | 6641 |
+| 3 | líder | 6 | 3 | master | nodo2 | 2 | 2048 | 100 | {"2": 4, "3": 3} | 6643 |
+| 3 | líder | 6 | 3 | master | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+
+(añadido a resultados/E5-experimento-particion.md)
+nodo 1: c2810308f0
+nodo 2: c2810308f0
+nodo 3: c2810308f0
+CONVERGENCIA: SÍ, todos los nodos tienen el mismo estado
+
+================ 2026-11-10T04:06:33+00:00 :: 1b. Latencia opcional 100 ms +-20 ms en nodo 3 ================
+latencia 100ms +-20ms en tailscale0
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+1    seguidor  6        3      slave   None    0          0/0                0         
+2    seguidor  6        3      slave   None    0          0/0                1         
+3    líder     6        3      master  True    0          1/1                1         
+latencia quitada
+
+================ 2026-11-10T04:06:38+00:00 :: 2. PARTICIÓN: aislando nodo 3 con iptables (entrada y salida) ================
+2026-11-10T04:06:39+00:00 NODO AISLADO de: 100.108.57.51 100.67.78.91
+Esperando detección de caída del líder y reelección (~12 s)...
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+1    seguidor  8        2      slave   None    0          0/0                0         
+2    líder     8        2      master  True    0          0/0                1         
+
+================ 2026-11-10T04:06:51+00:00 :: 3. DURANTE: escrituras concurrentes sobre el MISMO recurso (nodo1) ================
+-- al líder viejo (nodo 3, aislado, cree seguir siendo líder). Se ejecuta EN ese nodo:
+OK vía nodo 3 (coordinador 3, quórum=False): nodo1 -> cpu=1 mem=1792 bw=90 vv={"2": 6, "3": 5} L=6719 w=3
+-- al líder nuevo (nodo 2):
+OK vía nodo 2 (coordinador 2, quórum=True): nodo1 -> cpu=1 mem=1536 bw=80 vv={"2": 7, "3": 4} L=6717 w=2
+-- a un seguidor (nodo 1), se reenvía al líder nuevo:
+OK vía nodo 1 (coordinador 2, quórum=True): nodo2 -> cpu=1 mem=1920 bw=95 vv={"2": 5, "3": 3} L=6720 w=2
+-- escritura DIRECTA al Redis de una réplica debe ser rechazada (solo lectura):
+   (verificar con: redis-cli -a $REDIS_PASSWORD set inv:x 1  -> READONLY)
+-- estado según el nodo aislado (su propia vista):
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+3    líder     6        3      master  False   1          1/1                1         
+
+### DURANTE (NODOS CONECTADOS) — 2026-11-10 04:06:51
+
+| nodo | estado | término | líder | Redis | recurso | cpu | mem | bw | vector de versión | Lamport |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | seguidor | 8 | 2 | slave | nodo1 | 1 | 1536 | 80 | {"2": 7, "3": 4} | 6717 |
+| 1 | seguidor | 8 | 2 | slave | nodo2 | 1 | 1920 | 95 | {"2": 5, "3": 3} | 6720 |
+| 1 | seguidor | 8 | 2 | slave | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+| 2 | líder | 8 | 2 | master | nodo1 | 1 | 1536 | 80 | {"2": 7, "3": 4} | 6717 |
+| 2 | líder | 8 | 2 | master | nodo2 | 1 | 1920 | 95 | {"2": 5, "3": 3} | 6720 |
+| 2 | líder | 8 | 2 | master | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+
+(añadido a resultados/E5-experimento-particion.md)
+
+### DURANTE (NODO 3 AISLADO) — 2026-11-10 04:06:51
+
+| nodo | estado | término | líder | Redis | recurso | cpu | mem | bw | vector de versión | Lamport |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 3 | líder | 6 | 3 | master | nodo1 | 1 | 1792 | 90 | {"2": 6, "3": 5} | 6719 |
+| 3 | líder | 6 | 3 | master | nodo2 | 2 | 2048 | 100 | {"2": 4, "3": 3} | 6643 |
+| 3 | líder | 6 | 3 | master | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+
+(añadido a /dev/null)
+
+================ 2026-11-10T04:06:51+00:00 :: 4. RECONEXIÓN: se quitan las reglas de iptables del nodo 3 ================
+2026-11-10T04:06:52+00:00 NODO RECONECTADO
+Esperando reintegro del antiguo líder y resolución de conflictos (~15 s)...
+nodo estado    término  líder  Redis   quórum  sin-quórum conflictos(det/res) rechazados
+1    seguidor  8        2      slave   None    0          0/0                0         
+2    líder     8        2      master  True    0          1/1                1         
+3    seguidor  8        2      slave   None    0          1/1                1         
+
+================ 2026-11-10T04:07:07+00:00 :: 5. DESPUÉS: convergencia ================
+
+### DESPUÉS — 2026-11-10 04:07:07
+
+| nodo | estado | término | líder | Redis | recurso | cpu | mem | bw | vector de versión | Lamport |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | seguidor | 8 | 2 | slave | nodo1 | 1 | 1792 | 90 | {"2": 8, "3": 5} | 6743 |
+| 1 | seguidor | 8 | 2 | slave | nodo2 | 1 | 1920 | 95 | {"2": 5, "3": 3} | 6720 |
+| 1 | seguidor | 8 | 2 | slave | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+| 2 | líder | 8 | 2 | master | nodo1 | 1 | 1792 | 90 | {"2": 8, "3": 5} | 6743 |
+| 2 | líder | 8 | 2 | master | nodo2 | 1 | 1920 | 95 | {"2": 5, "3": 3} | 6720 |
+| 2 | líder | 8 | 2 | master | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+| 3 | seguidor | 8 | 2 | slave | nodo1 | 1 | 1792 | 90 | {"2": 8, "3": 5} | 6743 |
+| 3 | seguidor | 8 | 2 | slave | nodo2 | 1 | 1920 | 95 | {"2": 5, "3": 3} | 6720 |
+| 3 | seguidor | 8 | 2 | slave | nodo3 | 2 | 2048 | 100 | {"2": 2, "3": 2} | 6645 |
+
+(añadido a resultados/E5-experimento-particion.md)
+nodo 1: ed8010a52e
+nodo 2: ed8010a52e
+nodo 3: ed8010a52e
+CONVERGENCIA: SÍ, todos los nodos tienen el mismo estado
+
+Conflictos registrados por el líder: ver columna 'conflictos(det/res)' arriba y logs/conflictos-*.jsonl
+
+================ 2026-11-10T04:07:07+00:00 :: 6. Logs de los nodos (recogidos en evidencias/) ================
+logs del nodo 1 copiados
+logs del nodo 2 copiados
+logs del nodo 3 copiados
