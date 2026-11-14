@@ -1,0 +1,21 @@
+2026-11-10T03:44:44 [nodo 1] [seguidor t=0 L=0] nodo iniciado; clúster=[1, 2, 3] mayoría=2
+2026-11-10T03:44:48 [nodo 1] [candidato t=0 L=0] sin latido del líder: inicio ELECCIÓN (algoritmo del matón)
+2026-11-10T03:44:48 [nodo 1] [candidato t=0 L=4] sin mayoría para el término 1 (1/3); no puedo ser líder, reintento
+2026-11-10T03:44:54 [nodo 1] [seguidor t=3 L=28] líder reconocido: nodo 2, término 3
+2026-11-10T03:44:54 [nodo 1] [seguidor t=3 L=30] Redis local ahora es réplica del nodo 2
+2026-11-10T03:44:54 [nodo 1] [seguidor t=3 L=31] Redis local ahora es réplica del nodo 2
+2026-11-10T03:50:00 [nodo 1] [candidato t=3 L=1684] sin latido del líder: inicio ELECCIÓN (algoritmo del matón)
+2026-11-10T03:50:00 [nodo 1] [seguidor t=4 L=1696] líder reconocido: nodo 3, término 4
+2026-11-10T03:50:00 [nodo 1] [seguidor t=4 L=1696] Redis local ahora es réplica del nodo 3
+2026-11-10T03:50:17 [nodo 1] [seguidor t=4 L=1788] PRUEBA: me autoproclamo líder del término 5 sin elección
+2026-11-10T03:50:37 [nodo 1] [candidato t=4 L=1896] sin latido del líder: inicio ELECCIÓN (algoritmo del matón)
+2026-11-10T03:50:40 [nodo 1] [seguidor t=5 L=1908] líder reconocido: nodo 2, término 5
+2026-11-10T03:50:40 [nodo 1] [seguidor t=5 L=1908] Redis local ahora es réplica del nodo 2
+2026-11-10T03:50:40 [nodo 1] [seguidor t=5 L=1909] Redis local ahora es réplica del nodo 2
+2026-11-10T04:05:21 [nodo 1] [candidato t=5 L=6238] sin latido del líder: inicio ELECCIÓN (algoritmo del matón)
+2026-11-10T04:05:23 [nodo 1] [seguidor t=6 L=6248] líder reconocido: nodo 3, término 6
+2026-11-10T04:05:23 [nodo 1] [seguidor t=6 L=6248] Redis local ahora es réplica del nodo 3
+2026-11-10T04:06:42 [nodo 1] [candidato t=6 L=6692] sin latido del líder: inicio ELECCIÓN (algoritmo del matón)
+2026-11-10T04:06:48 [nodo 1] [candidato t=6 L=6699] sin latido del líder: inicio ELECCIÓN (algoritmo del matón)
+2026-11-10T04:06:50 [nodo 1] [seguidor t=8 L=6709] líder reconocido: nodo 2, término 8
+2026-11-10T04:06:50 [nodo 1] [seguidor t=8 L=6709] Redis local ahora es réplica del nodo 2

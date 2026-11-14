@@ -1,0 +1,32 @@
+2026-11-10T03:44:57 [nodo 3] [seguidor t=0 L=0] nodo iniciado; clúster=[1, 2, 3] mayoría=2
+2026-11-10T03:44:58 [nodo 3] [seguidor t=3 L=56] líder reconocido: nodo 2, término 3
+2026-11-10T03:44:58 [nodo 3] [seguidor t=3 L=56] Redis local ahora es réplica del nodo 2
+2026-11-10T03:50:00 [nodo 3] [seguidor t=3 L=1687] ELECTION recibido de nodo 1 (menor): respondo OK y tomo la elección
+2026-11-10T03:50:00 [nodo 3] [candidato t=3 L=1687] sin latido del líder: inicio ELECCIÓN (algoritmo del matón)
+2026-11-10T03:50:00 [nodo 3] [líder t=4 L=1694] *** ELEGIDO LÍDER *** término=4 votos=[1, 3] (mayoría 2/3); Redis local promovido a maestro
+2026-11-10T03:50:17 [nodo 3] [líder t=4 L=1800] RECHAZADO: nodo 1 se declara líder del término 5 sin certificado válido (cert=[1, 2, 3]); se ignora
+2026-11-10T03:50:31 [nodo 3] [líder t=4 L=1879] escritura set nodo1 -> cpu=2 mem=2048 bw=100 vv={'3': 1} lamport=1879
+2026-11-10T03:50:31 [nodo 3] [líder t=4 L=1881] escritura set nodo2 -> cpu=2 mem=2048 bw=100 vv={'3': 1} lamport=1881
+2026-11-10T03:50:31 [nodo 3] [líder t=4 L=1883] escritura set nodo3 -> cpu=2 mem=2048 bw=100 vv={'3': 1} lamport=1883
+2026-11-10T03:57:04 [nodo 3] [líder t=4 L=3446] nodo 1 reporta término 5 > 4: líder 2; verificando
+2026-11-10T03:57:04 [nodo 3] [líder t=4 L=3449] nodo 2 reporta término 5 > 4: líder 2; verificando
+2026-11-10T03:57:04 [nodo 3] [seguidor t=5 L=3453] ANTIGUO LÍDER (término 4) reconoce al nodo 2 (término 5); deja de asignar recursos y entrega sus escrituras
+2026-11-10T03:57:04 [nodo 3] [seguidor t=5 L=3455] líder reconocido: nodo 2, término 5
+2026-11-10T03:57:04 [nodo 3] [seguidor t=5 L=3455] Redis local ahora es réplica del nodo 2
+2026-11-10T03:57:04 [nodo 3] [seguidor t=5 L=3463] REINTEGRO completado: detectados=0 resueltos=0 avance_simple=0 (escrituras sin quórum entregadas: 0)
+2026-11-10T03:57:04 [nodo 3] [seguidor t=5 L=3463] Redis local ahora es réplica del nodo 2
+2026-11-10T04:05:21 [nodo 3] [seguidor t=5 L=6241] ELECTION recibido de nodo 1 (menor): respondo OK y tomo la elección
+2026-11-10T04:05:21 [nodo 3] [candidato t=5 L=6241] sin latido del líder: inicio ELECCIÓN (algoritmo del matón)
+2026-11-10T04:05:23 [nodo 3] [líder t=6 L=6246] *** ELEGIDO LÍDER *** término=6 votos=[1, 3] (mayoría 2/3); Redis local promovido a maestro
+2026-11-10T04:05:30 [nodo 3] [líder t=6 L=6288] escritura allocate nodo1 -> cpu=1 mem=1536 bw=80 vv={'2': 5, '3': 2} lamport=6288
+2026-11-10T04:05:30 [nodo 3] [líder t=6 L=6291] escritura allocate nodo2 -> cpu=1 mem=1920 bw=95 vv={'2': 4, '3': 2} lamport=6291
+2026-11-10T04:05:32 [nodo 3] [líder t=6 L=6311] REJOIN de nodo 2: 3 recursos, 1 escrituras divergentes registradas
+2026-11-10T04:05:32 [nodo 3] [líder t=6 L=6312] CONFLICTO nodo1: vv local={'2': 5, '3': 2} vs remoto={'2': 6, '3': 1} -> concurrentes. Gana escritor 3 (Lamport 6288) sobre escritor 2 (Lamport 6266)
+2026-11-10T04:05:32 [nodo 3] [líder t=6 L=6312] CONFLICTOS tras reconexión: detectados=1 resueltos=1 (regla: mayor Lamport; empate -> menor id de escritor)
+2026-11-10T04:06:30 [nodo 3] [líder t=6 L=6641] escritura set nodo1 -> cpu=2 mem=2048 bw=100 vv={'2': 6, '3': 4} lamport=6641
+2026-11-10T04:06:30 [nodo 3] [líder t=6 L=6643] escritura set nodo2 -> cpu=2 mem=2048 bw=100 vv={'2': 4, '3': 3} lamport=6643
+2026-11-10T04:06:30 [nodo 3] [líder t=6 L=6645] escritura set nodo3 -> cpu=2 mem=2048 bw=100 vv={'2': 2, '3': 2} lamport=6645
+2026-11-10T04:06:51 [nodo 3] [líder t=6 L=6719] ESCRITURA SIN QUÓRUM (posible divergencia) allocate nodo1 -> cpu=1 mem=1792 bw=90 vv={'2': 6, '3': 5} lamport=6719
+2026-11-10T04:06:52 [nodo 3] [seguidor t=8 L=6739] ANTIGUO LÍDER (término 6) reconoce al nodo 2 (término 8); deja de asignar recursos y entrega sus escrituras
+2026-11-10T04:06:52 [nodo 3] [seguidor t=8 L=6746] REINTEGRO completado: detectados=1 resueltos=1 avance_simple=0 (escrituras sin quórum entregadas: 1)
+2026-11-10T04:06:52 [nodo 3] [seguidor t=8 L=6746] Redis local ahora es réplica del nodo 2

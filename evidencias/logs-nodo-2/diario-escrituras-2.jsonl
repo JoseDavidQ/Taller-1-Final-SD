@@ -1,0 +1,14 @@
+{"bw": 90, "cpu": 1, "lamport": 3636, "mem": 1792, "op": "allocate", "resource": "nodo1", "sin_quorum": false, "term": 5, "ts": "2026-11-10T03:57:36", "vv": {"2": 1, "3": 1}, "writer": 2}
+{"bw": 70, "cpu": 0, "lamport": 3638, "mem": 1280, "op": "allocate", "resource": "nodo1", "sin_quorum": false, "term": 5, "ts": "2026-11-10T03:57:36", "vv": {"2": 2, "3": 1}, "writer": 2}
+{"bw": 95, "cpu": 1, "lamport": 3641, "mem": 1920, "op": "allocate", "resource": "nodo2", "sin_quorum": false, "term": 5, "ts": "2026-11-10T03:57:36", "vv": {"2": 1, "3": 1}, "writer": 2}
+{"bw": 100, "cpu": 2, "lamport": 4156, "mem": 2048, "op": "set", "resource": "nodo1", "sin_quorum": false, "term": 5, "ts": "2026-11-10T03:59:08", "vv": {"2": 3, "3": 1}, "writer": 2}
+{"bw": 100, "cpu": 2, "lamport": 4162, "mem": 2048, "op": "set", "resource": "nodo2", "sin_quorum": false, "term": 5, "ts": "2026-11-10T03:59:08", "vv": {"2": 2, "3": 1}, "writer": 2}
+{"bw": 100, "cpu": 2, "lamport": 4168, "mem": 2048, "op": "set", "resource": "nodo3", "sin_quorum": false, "term": 5, "ts": "2026-11-10T03:59:08", "vv": {"2": 1, "3": 1}, "writer": 2}
+{"bw": 80, "cpu": 1, "lamport": 4283, "mem": 1536, "op": "allocate", "resource": "nodo1", "sin_quorum": false, "term": 5, "ts": "2026-11-10T03:59:27", "vv": {"2": 4, "3": 1}, "writer": 2}
+{"bw": 95, "cpu": 1, "lamport": 4286, "mem": 1920, "op": "allocate", "resource": "nodo2", "sin_quorum": false, "term": 5, "ts": "2026-11-10T03:59:27", "vv": {"2": 3, "3": 1}, "writer": 2}
+{"bw": 100, "cpu": 2, "lamport": 6208, "mem": 2048, "op": "set", "resource": "nodo1", "sin_quorum": false, "term": 5, "ts": "2026-11-10T04:05:15", "vv": {"2": 5, "3": 1}, "writer": 2}
+{"bw": 100, "cpu": 2, "lamport": 6214, "mem": 2048, "op": "set", "resource": "nodo2", "sin_quorum": false, "term": 5, "ts": "2026-11-10T04:05:15", "vv": {"2": 4, "3": 1}, "writer": 2}
+{"bw": 100, "cpu": 2, "lamport": 6220, "mem": 2048, "op": "set", "resource": "nodo3", "sin_quorum": false, "term": 5, "ts": "2026-11-10T04:05:15", "vv": {"2": 2, "3": 1}, "writer": 2}
+{"bw": 90, "cpu": 1, "lamport": 6266, "mem": 1792, "op": "allocate", "resource": "nodo1", "sin_quorum": true, "term": 5, "ts": "2026-11-10T04:05:30", "vv": {"2": 6, "3": 1}, "writer": 2}
+{"bw": 80, "cpu": 1, "lamport": 6717, "mem": 1536, "op": "allocate", "resource": "nodo1", "sin_quorum": false, "term": 8, "ts": "2026-11-10T04:06:51", "vv": {"2": 7, "3": 4}, "writer": 2}
+{"bw": 95, "cpu": 1, "lamport": 6720, "mem": 1920, "op": "allocate", "resource": "nodo2", "sin_quorum": false, "term": 8, "ts": "2026-11-10T04:06:51", "vv": {"2": 5, "3": 3}, "writer": 2}
